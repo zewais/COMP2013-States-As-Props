@@ -11,6 +11,7 @@ interface ProductContainerProps {
   // Container callbacks include the ID because they can update any fruit.
   handleAdjustQuantity: (id: number, delta: number) => void;
   handleChangePrice: (id: number, price: number) => void;
+  // Unlike quantity/price callbacks, this accepts the complete cart snapshot.
   handleAddToCart: (cartItem: CartItem) => void;
 }
 
@@ -33,6 +34,7 @@ export default function ProductContainer({
         // key lets React track each card across list renders; it is not a card prop.
         // {...fruit} forwards catalog fields. The callbacks capture this fruit's ID,
         // so the card only supplies a quantity change or selected price.
+        // Add to Cart is forwarded unchanged: the card constructs its snapshot.
         return (
           <ProductCard
             key={fruit.id}

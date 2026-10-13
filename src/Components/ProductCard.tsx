@@ -3,7 +3,7 @@ import type { ProductInfo } from "../data/ProductInfo";
 import type { CartItem } from "./FruitsApp";
 
 // Extend catalog fields with current state and the actions this card can request.
-// These callbacks hide how the parent stores and updates its state array.
+// These callbacks hide how the parent stores and updates its state arrays.
 interface ProductCardProps extends fruit {
   productInfo: ProductInfo;
   onQuantityAdjust: (delta: number) => void;
@@ -47,11 +47,16 @@ export default function ProductCard({
       <button onClick={() => onQuantityAdjust(-1)}>{" - "}</button>
       <span>{productInfo.quantity}</span>
       <button onClick={() => onQuantityAdjust(1)}>{" + "}</button>
-      {/* Derive the total instead of storing another state value that could go stale.
-          toFixed(2) formats the display and returns a string. */}
+      {/* This preview derives its total from the current selection.
+          toFixed(2) returns a display string; it does not change the numbers
+          or apply formatting to values later passed to another component. */}
       <p>
         Total Price: {(productInfo.quantity * productInfo.price).toFixed(2)}$
       </p>
+      {/* Build a snapshot only when clicked. A fresh UUID distinguishes this
+          cart entry from both the fruit ID and previous entries of the same fruit.
+          Keep price and total numeric for calculations; cart components format
+          their own displays. Later selection changes do not alter this snapshot. */}
       <button
         onClick={() =>
           handleAddToCart({
