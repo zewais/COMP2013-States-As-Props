@@ -1,12 +1,12 @@
-import type { fruit } from "../data/data";
-import type { ProductInfo } from "../data/ProductInfo";
+import type { Fruit } from "../data/data";
+import type { ProductInfo } from "./FruitsApp";
 import type { CartItem } from "./FruitsApp";
 import ProductCard from "./ProductCard";
 
 // This component arranges cards and connects catalog items to their current state.
 // It forwards actions to FruitsApp rather than implementing state updates itself.
 interface ProductContainerProps {
-  data: fruit[];
+  data: Fruit[];
   productInfo: ProductInfo[];
   // Container callbacks include the ID because they can update any fruit.
   handleAdjustQuantity: (id: number, delta: number) => void;
@@ -40,8 +40,10 @@ export default function ProductContainer({
             key={fruit.id}
             {...fruit}
             productInfo={info}
-            onQuantityAdjust={(delta) => handleAdjustQuantity(fruit.id, delta)}
-            onPriceChange={(price) => handleChangePrice(fruit.id, price)}
+            handleQuantityAdjust={(delta) =>
+              handleAdjustQuantity(fruit.id, delta)
+            }
+            handlePriceChange={(price) => handleChangePrice(fruit.id, price)}
             handleAddToCart={handleAddToCart}
           />
         );

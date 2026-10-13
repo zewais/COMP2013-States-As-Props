@@ -1,5 +1,5 @@
 /** Catalog information and initial quantity; current selections live in ProductInfo. */
-export interface fruit {
+export interface Fruit {
   // IDs must be unique: state lookup, updates, and React list keys use them.
   id: number;
   product: string;
@@ -11,7 +11,7 @@ export interface fruit {
 }
 
 // Fixed catalog for this example. FruitsApp assumes it stays fixed while mounted.
-const fruits: fruit[] = [
+const fruits: Fruit[] = [
   {
     id: 1,
     product: "Apple",

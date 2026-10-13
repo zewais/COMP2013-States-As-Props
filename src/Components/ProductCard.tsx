@@ -1,13 +1,13 @@
-import type { fruit } from "../data/data";
-import type { ProductInfo } from "../data/ProductInfo";
+import type { Fruit } from "../data/data";
+import type { ProductInfo } from "./FruitsApp";
 import type { CartItem } from "./FruitsApp";
 
 // Extend catalog fields with current state and the actions this card can request.
 // These callbacks hide how the parent stores and updates its state arrays.
-interface ProductCardProps extends fruit {
+interface ProductCardProps extends Fruit {
   productInfo: ProductInfo;
-  onQuantityAdjust: (delta: number) => void;
-  onPriceChange: (price: number) => void;
+  handleQuantityAdjust: (delta: number) => void;
+  handlePriceChange: (price: number) => void;
   handleAddToCart: (cartItem: CartItem) => void;
 }
 
@@ -18,8 +18,8 @@ export default function ProductCard({
   priceOptions,
   img,
   productInfo,
-  onQuantityAdjust,
-  onPriceChange,
+  handleQuantityAdjust,
+  handlePriceChange,
   handleAddToCart,
 }: ProductCardProps) {
   return (
@@ -32,7 +32,7 @@ export default function ProductCard({
       <select
         name="priceOption"
         value={productInfo.price}
-        onChange={(e) => onPriceChange(parseFloat(e.target.value))}
+        onChange={(e) => handlePriceChange(parseFloat(e.target.value))}
       >
         {/* Keep numeric option values separate from their two-decimal labels.
             Prices serve as keys here, assuming options are unique per fruit. */}
@@ -44,9 +44,9 @@ export default function ProductCard({
       </select>
       <br />
       {/* Arrow functions defer actions until a click; the parent enforces the floor. */}
-      <button onClick={() => onQuantityAdjust(-1)}>{" - "}</button>
+      <button onClick={() => handleQuantityAdjust(-1)}>{" - "}</button>
       <span>{productInfo.quantity}</span>
-      <button onClick={() => onQuantityAdjust(1)}>{" + "}</button>
+      <button onClick={() => handleQuantityAdjust(1)}>{" + "}</button>
       {/* This preview derives its total from the current selection.
           toFixed(2) returns a display string; it does not change the numbers
           or apply formatting to values later passed to another component. */}

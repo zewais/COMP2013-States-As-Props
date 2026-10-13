@@ -1,15 +1,23 @@
 // Owns two separate collections: live product selections and saved cart entries.
 // Values flow down through props; callbacks let children request parent updates.
 // Type-only imports describe props and state without adding runtime imports.
-import type { fruit } from "../data/data";
-import type { ProductInfo } from "../data/ProductInfo";
+import type { Fruit } from "../data/data";
 import CartContainer from "./CartContainer";
 import ProductContainer from "./ProductContainer";
 import { useState } from "react";
 
 interface FruitData {
   // Catalog entries used to initialize state and supply card labels and options.
-  data: fruit[];
+  data: Fruit[];
+}
+
+export interface ProductInfo {
+  // Links this state entry to the catalog item independently of array order.
+  id: number;
+  // Current selected quantity, kept nonnegative by FruitsApp's update function.
+  quantity: number;
+  // Selected unit price, rather than the calculated total.
+  price: number;
 }
 
 /** Snapshot of a selection at the moment Add to Cart is clicked. */
