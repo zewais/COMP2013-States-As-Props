@@ -10,7 +10,7 @@ export default function CartCard({
   total,
 }: CartItem) {
   return (
-    <div>
+    <div className="CartCard">
       <h2>{product}</h2>
       <p>quantity: {quantity}</p>
       {/* Format each monetary value where it is displayed. toFixed returns a
